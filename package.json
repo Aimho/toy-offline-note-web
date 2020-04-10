@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "apollo-cache-inmemory": "^1.6.5",
     "apollo-client": "^2.6.8",
+    "apollo-link": "^1.2.14",
     "apollo-link-state": "^0.4.2",
     "graphql": "^15.0.0",
     "graphql-tag": "^2.10.3",

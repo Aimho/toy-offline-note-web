@@ -4,7 +4,8 @@
 
 - Set Up <br/>
   install pkg and remove preset file and set styled-components globalStyle
-- Offline Apollo Configuration
+- Offline Apollo Configuration <br/>
+  apollo settings
 - Type Definitions for Offline Schema
 - Note Query
 - Add Note Mutation
