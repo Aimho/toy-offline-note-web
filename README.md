@@ -24,12 +24,10 @@ route settings
 
 note markdown settings
 
-##### Add Note Route
+##### Add, Edit Mutation
 
-##### Edit Note Route
+add, edit mutation 추가
 
 ##### Saving the Notes Offline
 
-##### Restoring Offline Notes
-
-##### Conclusions
+localStorage를 사용해서 offline으로 저장, 불러오기 기능 추가
