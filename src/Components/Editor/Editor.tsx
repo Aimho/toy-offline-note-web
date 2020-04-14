@@ -33,7 +33,14 @@ const Button = styled.button`
   padding: 20px 40px;
 `;
 
-const Editor = (props) => {
+interface Props {
+  title?: string;
+  content?: string;
+  id?: string;
+  onSave: (title: string, content: string, id?: string) => void;
+}
+
+const Editor: React.FC<Props> = (props) => {
   const [title, setTitle] = useState(props.title ? props.title : "");
   const [content, setContent] = useState(props.content ? props.content : "");
 
