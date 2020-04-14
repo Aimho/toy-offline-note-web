@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Query } from "react-apollo";
+import { useQuery } from "react-apollo";
 import { Link } from "react-router-dom";
 import { ReactComponent as Plus } from "../../Components/plus.svg";
 import styled from "styled-components";
@@ -57,35 +57,34 @@ const NoteTitle = styled.span`
   font-size: 20px;
 `;
 
-const NotesContainer = () => (
-  <Fragment>
-    <Header>
-      <Title>
-        Offline Notes
-        <Link to={"/add"}>
-          <Button>
-            <Plus />
-          </Button>
-        </Link>
-      </Title>
-      <Subtitle>Taking notes while we learn</Subtitle>
-    </Header>
+const NotesContainer = () => {
+  const { loading, error, data } = useQuery(GET_NOTES);
+  if (loading || error || !data || !data.notes) return null;
 
-    <Notes>
-      <Query query={GET_NOTES}>
-        {({ data }) =>
-          data && data.notes
-            ? data.notes.map((note) => (
-                <Link to={`/edit/${note.id}`} key={note.id}>
-                  <Note>
-                    <NoteTitle>{note.title}</NoteTitle>
-                  </Note>
-                </Link>
-              ))
-            : null
-        }
-      </Query>
-    </Notes>
-  </Fragment>
-);
+  return (
+    <Fragment>
+      <Header>
+        <Title>
+          Offline Notes
+          <Link to={"/add"}>
+            <Button>
+              <Plus />
+            </Button>
+          </Link>
+        </Title>
+        <Subtitle>Taking notes while we learn</Subtitle>
+      </Header>
+
+      <Notes>
+        {data.notes.map((note) => (
+          <Link to={`/edit/${note.id}`} key={note.id}>
+            <Note>
+              <NoteTitle>{note.title}</NoteTitle>
+            </Note>
+          </Link>
+        ))}
+      </Notes>
+    </Fragment>
+  );
+};
 export default NotesContainer;

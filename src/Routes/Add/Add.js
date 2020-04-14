@@ -1,5 +1,6 @@
 import React from "react";
-import { Mutation } from "react-apollo";
+import { withRouter } from "react-router-dom";
+import { useMutation } from "react-apollo";
 import gql from "graphql-tag";
 import Editor from "../../Components/Editor";
 
@@ -11,27 +12,20 @@ const ADD_NOTE = gql`
   }
 `;
 
-class Add extends React.Component {
-  render() {
-    return (
-      <Mutation mutation={ADD_NOTE}>
-        {(createNote) => {
-          this.createNote = createNote;
-          return <Editor onSave={this.onSave} />;
-        }}
-      </Mutation>
-    );
-  }
+const Add = (props) => {
+  const {
+    history: { push },
+  } = props;
+  const [addNote] = useMutation(ADD_NOTE);
 
-  onSave = (title, content) => {
-    const {
-      history: { push },
-    } = this.props;
-    if (title !== "" && content !== "") {
-      this.createNote({ variables: { title, content } });
+  const onSave = (title, content) => {
+    if (title && content) {
+      addNote({ variables: { title, content } });
       push("/");
     }
   };
-}
 
-export default Add;
+  return <Editor onSave={onSave} />;
+};
+
+export default withRouter(Add);

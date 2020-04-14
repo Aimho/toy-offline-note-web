@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link, withRouter } from "react-router-dom";
-import { Query } from "react-apollo";
+import { useQuery } from "react-apollo";
 import styled from "styled-components";
 import MarkdownRenderer from "react-markdown-renderer";
 import { GET_NOTE } from "../../queries";
@@ -18,7 +18,9 @@ const Title = styled.h1`
   padding: 0;
 `;
 
-const Button = styled.button``;
+const Button = styled.button`
+  padding: 20px 40px;
+`;
 
 const Note = (props) => {
   const {
@@ -27,22 +29,19 @@ const Note = (props) => {
     },
   } = props;
 
+  const { loading, error, data } = useQuery(GET_NOTE, { variables: { id } });
+  if (loading || error || !data || !data.note) return null;
+
   return (
-    <Query query={GET_NOTE} variables={{ id }}>
-      {({ data }) =>
-        data && data.note ? (
-          <Fragment>
-            <TitleComponent>
-              <Title>{data.note && data.note.title}</Title>
-              <Link to={`/edit/${data.note.id}`}>
-                <Button>Edit</Button>
-              </Link>
-            </TitleComponent>
-            <MarkdownRenderer markdown={data.note.content} />
-          </Fragment>
-        ) : null
-      }
-    </Query>
+    <Fragment>
+      <TitleComponent>
+        <Title>{data.note && data.note.title}</Title>
+        <Link to={`/edit/${data.note.id}`}>
+          <Button>Edit</Button>
+        </Link>
+      </TitleComponent>
+      <MarkdownRenderer markdown={data.note.content} />
+    </Fragment>
   );
 };
 export default withRouter(Note);
