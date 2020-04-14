@@ -57,7 +57,7 @@ const NoteTitle = styled.span`
   font-size: 20px;
 `;
 
-const NotesContainer = () => {
+const NotesContainer: React.FC = () => {
   const { loading, error, data } = useQuery(GET_NOTES);
   if (loading || error || !data || !data.notes) return null;
 
@@ -77,7 +77,7 @@ const NotesContainer = () => {
 
       <Notes>
         {data.notes.map((note) => (
-          <Link to={`/edit/${note.id}`} key={note.id}>
+          <Link to={`/edit/${note.id}`} key={note.id} data-testid="notes">
             <Note>
               <NoteTitle>{note.title}</NoteTitle>
             </Note>
