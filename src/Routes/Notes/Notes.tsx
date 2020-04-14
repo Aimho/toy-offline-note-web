@@ -77,7 +77,7 @@ const NotesContainer: React.FC = () => {
 
       <Notes>
         {data.notes.map((note) => (
-          <Link to={`/edit/${note.id}`} key={note.id} data-testid="notes">
+          <Link to={`/edit/${note.id}`} key={note.id}>
             <Note>
               <NoteTitle>{note.title}</NoteTitle>
             </Note>
