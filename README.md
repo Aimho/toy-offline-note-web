@@ -1,6 +1,6 @@
 # Offline Note
 
-## nomadcoders [GraphQL로 오프라인 노트앱 만들기](https://academy.nomadcoders.co/courses/enrolled/424003)
+### nomadcoders [GraphQL로 오프라인 노트앱 만들기](https://academy.nomadcoders.co/courses/enrolled/424003)
 
 ##### Set Up
 
